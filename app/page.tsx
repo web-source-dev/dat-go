@@ -387,9 +387,9 @@ function DashboardContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
           <p className="mt-4 text-gray-400">Loading your dashboard...</p>
         </div>
       </div>
@@ -398,9 +398,9 @@ function DashboardContent() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="text-red-600 text-xl mb-4">⚠️ Error</div>
+          <div className="text-red-600 text-xl mb-4">Error</div>
           <p className="text-gray-400">{error}</p>
         </div>
       </div>
@@ -409,7 +409,7 @@ function DashboardContent() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="text-gray-400">No user data available</div>
         </div>
