@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, Suspense } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import BackgroundEffect from '../components/BackgroundEffect';
 
@@ -37,41 +37,22 @@ interface Payment {
   referralStatuses?: any[];
 }
 
-interface DATSession {
-  _id: string;
-  name: string;
-  proxy: string;
-  isLoggedIn: boolean;
-  fileName: string;
-  label: string;
-  hasCookies: boolean;
-  cookieCount: number;
-  createdAt: Date;
+interface SupportPhone {
+  phone: string;
+  tel: string;
 }
 
-interface DeviceSession {
-  _id: string;
-  deviceId: string;
-  deviceInfo: any;
-  location: any;
-  isActive: boolean;
-  loginAt: Date;
-  lastActivity: Date;
-}
+
 
 function DashboardContent() {
   const searchParams = useSearchParams();
   const [user, setUser] = useState<User | null>(null);
-  const [payments, setPayments] = useState<Payment[]>([]);
-  const [sessions, setSessions] = useState<DATSession[]>([]);
-  const [deviceSessions, setDeviceSessions] = useState<DeviceSession[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [referralCode, setReferralCode] = useState('');
   const [inputReferralCode, setInputReferralCode] = useState('');
   const [referralCodeError, setReferralCodeError] = useState('');
   const [referredUsers, setReferredUsers] = useState<any[]>([]);
-  const [referralDiscounts, setReferralDiscounts] = useState([]);
   const [userPayments, setUserPayments] = useState<Payment[]>([]);
   const [monthlyPayment, setMonthlyPayment] = useState(0);
   const [billingDate, setBillingDate] = useState(0);
@@ -79,6 +60,7 @@ function DashboardContent() {
   const [expandedPaymentId, setExpandedPaymentId] = useState<string | null>(null);
   const [activeMessages, setActiveMessages] = useState<any[]>([]);
   const [referralSuccess, setReferralSuccess] = useState<string>('');
+  const [supportPhones, setSupportPhones] = useState<SupportPhone[]>([]);
 
   useEffect(() => {
     const initializeApp = async () => {
@@ -114,6 +96,7 @@ function DashboardContent() {
     };
 
     initializeApp();
+    fetchSupportContact();
   }, [searchParams]);
 
   const fetchUserData = async (token: string, userId: string) => {
@@ -153,38 +136,11 @@ function DashboardContent() {
 
       if (paymentsResponse.ok) {
         const paymentsData = await paymentsResponse.json();
-        setPayments(paymentsData.payments || []);
         setUserPayments(paymentsData.payments || []);
         if (paymentsData.user) {
           setMonthlyPayment(paymentsData.user.monthlyPaymentAmount || 0);
           setBillingDate(paymentsData.user.billingDate || 0);
         }
-      }
-
-      // Fetch sessions
-      const sessionsResponse = await fetch(`https://api.kmldigital.xyz/session/my`, {
-        headers: {
-          'Authorization': token,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (sessionsResponse.ok) {
-        const sessionsData = await sessionsResponse.json();
-        setSessions(sessionsData.sessions || []);
-      }
-
-      // Fetch device sessions
-      const deviceResponse = await fetch(`https://api.kmldigital.xyz/device/sessions`, {
-        headers: {
-          'Authorization': token,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (deviceResponse.ok) {
-        const deviceData = await deviceResponse.json();
-        setDeviceSessions(deviceData.sessions || []);
       }
 
       // Fetch referrals
@@ -211,19 +167,6 @@ function DashboardContent() {
       if (messagesResponse.ok) {
         const messagesData = await messagesResponse.json();
         setActiveMessages(messagesData.messages || []);
-      }
-
-      // Fetch referral discounts
-      const referralDiscountsResponse = await fetch(`https://api.kmldigital.xyz/payment/referral-discounts/${userId}`, {
-        headers: {
-          'Authorization': token,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (referralDiscountsResponse.ok) {
-        const referralDiscountsData = await referralDiscountsResponse.json();
-        setReferralDiscounts(referralDiscountsData || []);
       }
 
     } catch (err) {
@@ -373,6 +316,30 @@ function DashboardContent() {
     } catch (error: any) {
       console.error('Referral code error:', error);
       setReferralCodeError(error.message || 'Unable to apply referral code. Please try again.');
+    }
+  };
+
+  const fetchSupportContact = async () => {
+    try {
+      const token = localStorage.getItem('dat_go_token');
+      if (!token) return;
+
+      const response = await fetch('https://api.kmldigital.xyz/support/contact', {
+        headers: {
+          'Authorization': token,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.ok && data.data && data.data.phones) {
+          setSupportPhones(data.data.phones);
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching support contact:', error);
+      // Keep empty array on error
     }
   };
 
@@ -839,23 +806,21 @@ function DashboardContent() {
             <div className="text-center">
               <p className="text-sm text-gray-400 mb-1">Need Help? Contact us on WhatsApp:</p>
               <div className="flex items-center justify-center space-x-4 text-sm">
-                <a
-                  href="https://wa.me/923183342804"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-indigo-400 hover:text-indigo-300 transition-colors"
-                >
-                  +92 (318) 334-2804
-                </a>
-                <span className="text-gray-600">•</span>
-                <a
-                  href="https://wa.me/923107864419"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-indigo-400 hover:text-indigo-300 transition-colors"
-                >
-                  +92 (310) 786-4419
-                </a>
+                {supportPhones.map((phone, index) => (
+                  <React.Fragment key={phone.tel}>
+                    <a
+                      href={`https://wa.me/${phone.tel.replace('+', '')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-indigo-400 hover:text-indigo-300 transition-colors"
+                    >
+                      {phone.phone}
+                    </a>
+                    {index < supportPhones.length - 1 && (
+                      <span className="text-gray-600">•</span>
+                    )}
+                  </React.Fragment>
+                ))}
               </div>
             </div>
             <div className="text-center text-xs text-gray-500">
