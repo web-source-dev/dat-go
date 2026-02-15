@@ -854,7 +854,7 @@ function DashboardContent() {
                   rel="noopener noreferrer"
                   className="text-indigo-400 hover:text-indigo-300 transition-colors"
                 >
-                  +92 (326) 273-7212
+                  +92 (310) 786-4419
                 </a>
               </div>
             </div>
