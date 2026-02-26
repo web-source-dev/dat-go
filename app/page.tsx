@@ -77,8 +77,8 @@ function DashboardContent() {
           return;
         }
 
-        setError('Missing authentication parameters');
-        setLoading(false);
+        // Redirect to login page
+        window.location.href = '/login';
         return;
       }
 
@@ -121,6 +121,13 @@ function DashboardContent() {
       }
 
       const userData = await userResponse.json();
+
+      // Redirect salespersons to their dashboard
+      if (userData.user.role === 'salesperson') {
+        window.location.href = `/salesperson-dashboard?token=${token}&userId=${userId}`;
+        return;
+      }
+
       setUser(userData.user);
       setReferralCode(userData.user.referralCode || '');
       setMonthlyPayment(userData.user.monthlyPaymentAmount || 0);
@@ -178,7 +185,7 @@ function DashboardContent() {
         setTimeout(() => {
           localStorage.removeItem('dat_go_token');
           localStorage.removeItem('dat_go_userId');
-          window.location.href = '/';
+          window.location.href = '/login';
         }, 3000);
       }
     } finally {

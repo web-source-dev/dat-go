@@ -1,190 +1,153 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 function PrivacyPolicy() {
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
   const handleBack = () => {
     if (typeof window !== 'undefined') {
       window.history.back();
     }
   };
 
-  if (!isClient) {
-    return (
-      <div className="fixed inset-0 z-50 bg-gray-900 text-white overflow-hidden">
-        <div className="w-full h-full overflow-hidden flex flex-col">
-          <div className="bg-blue-600 px-8 py-6 border-b border-gray-700">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse"></div>
-                <h1 className="text-2xl font-bold text-white">PRIVACY POLICY</h1>
-              </div>
-              <div className="w-10 h-10"></div>
-            </div>
-          </div>
-          <div className="flex-1 flex items-center justify-center">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-              <p className="mt-4 text-gray-400">Loading...</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="fixed inset-0 z-50 bg-gray-900 text-white overflow-hidden">
-      <div className="w-full h-full overflow-hidden flex flex-col">
-        <div className="bg-blue-600 px-8 py-6 border-b border-gray-700">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse"></div>
-              <h1 className="text-2xl font-bold text-white">PRIVACY POLICY</h1>
+    <div className="fixed inset-0 z-50 overflow-hidden bg-neutral-100 text-neutral-900">
+      <div className="flex h-full w-full flex-col overflow-hidden">
+        <header className="border-b border-neutral-300 bg-neutral-50 px-6 py-5 sm:px-8">
+          <div className="mx-auto flex w-full max-w-6xl items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-semibold tracking-tight">Privacy Policy</h1>
+              <p className="mt-1 text-sm text-neutral-500">Last updated: January 2026</p>
             </div>
             <button
               onClick={handleBack}
-              className="w-10 h-10 flex items-center justify-center hover:bg-red-600 rounded-lg transition-colors"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-neutral-200 text-neutral-600 transition hover:bg-neutral-100"
+              aria-label="Close privacy policy"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
-        </div>
+        </header>
 
-        <div className="flex-1 overflow-y-auto">
-          <div className="p-8 max-w-4xl mx-auto">
-            <div className="prose prose-invert max-w-none">
-              <p className="text-sm text-gray-400 mb-6">Last updated: January 2026</p>
-
-              <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">1. Introduction</h2>
-                <p className="text-gray-300 mb-4">
-                  Welcome to DAT GO ("we," "our," or "us"). We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our DAT trading platform application.
+        <main className="flex-1 overflow-y-auto">
+          <div className="mx-auto grid w-full max-w-6xl gap-6 p-6 sm:p-8 lg:grid-cols-[1fr_300px]">
+            <div className="space-y-6">
+              <section className="rounded-xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+                <p className="text-xs font-medium uppercase tracking-wide text-neutral-500">Privacy Commitment</p>
+                <h2 className="mt-2 text-2xl font-semibold">Your data stays protected</h2>
+                <p className="mt-2 text-neutral-700">
+                  We collect only the information needed to run billing, referrals, and platform security.
                 </p>
+                <div className="mt-4 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-sm text-neutral-700">
+                  <p className="font-medium">We do not sell your personal information.</p>
+                </div>
               </section>
 
-              <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">2. Information We Collect</h2>
-
-                <h3 className="text-xl font-semibold text-blue-400 mb-3">2.1 Personal Information</h3>
-                <ul className="list-disc list-inside text-gray-300 mb-4 space-y-2">
-                  <li>Name and email address</li>
-                  <li>Payment information and billing details</li>
-                  <li>Referral codes and usage history</li>
-                  <li>Account preferences and settings</li>
-                  <li>Device and usage information</li>
-                </ul>
-
-                <h3 className="text-xl font-semibold text-blue-400 mb-3">2.2 Usage Data</h3>
-                <ul className="list-disc list-inside text-gray-300 mb-4 space-y-2">
-                  <li>Login times and session duration</li>
-                  <li>Features accessed and usage patterns</li>
-                  <li>Error logs and crash reports</li>
-                  <li>Performance metrics</li>
-                </ul>
+              <section className="rounded-xl border border-neutral-300 bg-neutral-50 p-6 shadow-sm">
+                <h2 className="text-xl font-semibold">1. Information We Collect</h2>
+                <div className="mt-4 grid gap-4 md:grid-cols-2">
+                  <div className="rounded-lg border border-indigo-200 bg-indigo-50 p-4">
+                    <h3 className="font-semibold">Personal Information</h3>
+                    <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-neutral-700">
+                      <li>Name and email address</li>
+                      <li>Billing and payment details</li>
+                      <li>Referral code usage</li>
+                      <li>Account preferences</li>
+                    </ul>
+                  </div>
+                  <div className="rounded-lg border border-sky-200 bg-sky-50 p-4">
+                    <h3 className="font-semibold">Usage Information</h3>
+                    <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-neutral-700">
+                      <li>Login/session data</li>
+                      <li>Features used</li>
+                      <li>Error and crash logs</li>
+                      <li>Performance metrics</li>
+                    </ul>
+                  </div>
+                </div>
               </section>
 
-              <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">3. How We Use Your Information</h2>
-                <ul className="list-disc list-inside text-gray-300 mb-4 space-y-2">
-                  <li>Provide and maintain our DAT trading services</li>
-                  <li>Process payments and manage billing</li>
-                  <li>Administer referral programs and bonuses</li>
-                  <li>Send important service notifications</li>
-                  <li>Improve our application and user experience</li>
-                  <li>Ensure platform security and prevent fraud</li>
+              <section className="rounded-xl border border-neutral-300 bg-neutral-50 p-6 shadow-sm">
+                <h2 className="text-xl font-semibold">2. How We Use Data</h2>
+                <ul className="mt-4 list-disc space-y-1 pl-5 text-sm text-neutral-700">
+                  <li>Provide and improve the DAT GO application</li>
+                  <li>Process subscriptions, billing, and referral discounts</li>
+                  <li>Send critical service and account notices</li>
+                  <li>Prevent fraud and protect account security</li>
                   <li>Comply with legal obligations</li>
                 </ul>
               </section>
 
-              <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">4. Information Sharing</h2>
-                <p className="text-gray-300 mb-4">
-                  We do not sell, trade, or otherwise transfer your personal information to third parties, except in the following circumstances:
-                </p>
-                <ul className="list-disc list-inside text-gray-300 mb-4 space-y-2">
-                  <li>With your explicit consent</li>
-                  <li>To comply with legal requirements</li>
-                  <li>To protect our rights and prevent fraud</li>
-                  <li>With service providers who assist our operations (under strict confidentiality agreements)</li>
-                </ul>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">5. Data Security</h2>
-                <p className="text-gray-300 mb-4">
-                  We implement industry-standard security measures to protect your personal information:
-                </p>
-                <ul className="list-disc list-inside text-gray-300 mb-4 space-y-2">
-                  <li>Encrypted data transmission and storage</li>
-                  <li>Secure password hashing</li>
-                  <li>Regular security audits</li>
-                  <li>Limited access to personal data</li>
-                  <li>Automatic session timeouts</li>
-                </ul>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">6. Your Rights</h2>
-                <p className="text-gray-300 mb-4">You have the following rights regarding your personal information:</p>
-                <ul className="list-disc list-inside text-gray-300 mb-4 space-y-2">
-                  <li>Access to your personal data</li>
-                  <li>Correction of inaccurate information</li>
-                  <li>Deletion of your account and data</li>
-                  <li>Data portability</li>
-                  <li>Opt-out of certain data processing</li>
-                </ul>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">7. Cookies and Tracking</h2>
-                <p className="text-gray-300 mb-4">
-                  Our application may use local storage and session management for functionality. We do not use third-party tracking cookies or analytics services that collect personal information.
-                </p>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">8. Data Retention</h2>
-                <p className="text-gray-300 mb-4">
-                  We retain your personal information for as long as necessary to provide our services and comply with legal obligations. Account data is retained while your account is active and for a reasonable period thereafter.
-                </p>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">9. Children's Privacy</h2>
-                <p className="text-gray-300 mb-4">
-                  Our services are not intended for children under 18 years of age. We do not knowingly collect personal information from children under 18.
-                </p>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">10. Changes to This Policy</h2>
-                <p className="text-gray-300 mb-4">
-                  We may update this Privacy Policy from time to time. We will notify you of any material changes by updating the "Last updated" date and providing in-app notifications.
-                </p>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">11. Contact Us</h2>
-                <p className="text-gray-300 mb-4">
-                  If you have any questions about this Privacy Policy or our data practices, please contact us:
-                </p>
-                <div className="bg-gray-800 p-4 rounded-lg">
-                  <p className="text-gray-300"><strong>Email:</strong> privacy@dat-go.com</p>
-                  <p className="text-gray-300"><strong>Phone:</strong> +1 (555) 123-4567</p>
+              <section className="rounded-xl border border-neutral-300 bg-neutral-50 p-6 shadow-sm">
+                <h2 className="text-xl font-semibold">3. Sharing and Security</h2>
+                <div className="mt-4 grid gap-4 md:grid-cols-2">
+                  <div className="rounded-lg border border-neutral-200 p-4">
+                    <h3 className="font-semibold">When we may share data</h3>
+                    <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-neutral-700">
+                      <li>With your consent</li>
+                      <li>For legal compliance</li>
+                      <li>With trusted service providers under confidentiality terms</li>
+                    </ul>
+                  </div>
+                  <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
+                    <h3 className="font-semibold">How we protect data</h3>
+                    <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-neutral-700">
+                      <li>Encrypted transmission/storage</li>
+                      <li>Secure authentication controls</li>
+                      <li>Limited access and periodic reviews</li>
+                      <li>Session timeout safeguards</li>
+                    </ul>
+                  </div>
                 </div>
               </section>
+
+              <section className="rounded-xl border border-neutral-300 bg-neutral-50 p-6 shadow-sm">
+                <h2 className="text-xl font-semibold">4. Your Rights and Data Retention</h2>
+                <ul className="mt-4 list-disc space-y-1 pl-5 text-sm text-neutral-700">
+                  <li>Access and correct your personal information</li>
+                  <li>Request deletion of your account data</li>
+                  <li>Request data portability where applicable</li>
+                  <li>Opt out of some data processing</li>
+                  <li>Data is retained only as needed for service and legal obligations</li>
+                </ul>
+                </section>
             </div>
+
+            <aside className="space-y-4 lg:sticky lg:top-6 lg:self-start">
+              <section className="rounded-xl border border-neutral-300 bg-neutral-50 p-5 shadow-sm">
+                <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-500">Quick Summary</h2>
+                <div className="mt-4 space-y-3 text-sm">
+                  <div className="rounded-md border border-slate-200 bg-slate-50 p-3">
+                    <p className="text-neutral-500">Policy Version</p>
+                    <p className="mt-1 font-semibold text-neutral-900">January 2026</p>
+                  </div>
+                  <div className="rounded-md border border-emerald-200 bg-emerald-50 p-3">
+                    <p className="text-neutral-500">Data Sales</p>
+                    <p className="mt-1 font-semibold text-neutral-900">Not sold to third parties</p>
+                  </div>
+                </div>
+              </section>
+
+              <section className="rounded-xl border border-neutral-300 bg-neutral-50 p-5 shadow-sm">
+                <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-500">Privacy Contact</h2>
+                <div className="mt-4 space-y-3">
+                  <div>
+                    <p className="mt-2 text-sm text-neutral-600">We may update this policy from time to time. Material changes are reflected in-app with an updated date. <br /> <br /> For any questions or concerns about this privacy policy, please contact us:</p>
+                  </div>
+                  <div className="rounded-md border border-neutral-200 p-3">
+                    <p className="text-xs text-neutral-500">Email</p>
+                    <p className="mt-1 font-medium">privacy@dat-go.com</p>
+                  </div>
+                  <div className="rounded-md border border-neutral-200 p-3">
+                    <p className="text-xs text-neutral-500">Phone</p>
+                    <p className="mt-1 font-medium">+1 (555) 123-4567</p>
+                  </div>
+                </div>
+              </section>
+            </aside>
           </div>
-        </div>
+        </main>
       </div>
     </div>
   );
