@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 interface User {
@@ -63,7 +63,7 @@ interface UserPaymentInfo {
   previousMonth?: Payment;
 }
 
-function SalespersonDashboard() {
+function SalespersonDashboardContent() {
   const searchParams = useSearchParams();
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -735,4 +735,17 @@ function SalespersonDashboard() {
   );
 }
 
-export default SalespersonDashboard;
+export default function SalespersonDashboard() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gray-900">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
+          <p className="mt-4 text-gray-400">Loading your dashboard...</p>
+        </div>
+      </div>
+    }>
+      <SalespersonDashboardContent />
+    </Suspense>
+  );
+}
